@@ -17,14 +17,9 @@ server {
   # CMS configuration file for nginx, templated by ansible
       
   # Proxy to a remote maintanence page
-  {% if NGINX_EDXAPP_ENABLE_S3_MAINTENANCE %}
+  {% if NGINX_EDXAPP_ENABLE_MAINTENANCE %}
 
-  # Do not include a 502 error in NGINX_ERROR_PAGES when 
-  # NGINX_EDXAPP_ENABLE_S3_MAINTENANCE is enabled.
-
-  error_page 502 @maintenance;
-
-    {% include "s3_maintenance.j2" %}
+    {% include "maintenance.j2" %}
   
   {% endif %}
 

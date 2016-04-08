@@ -1,0 +1,30 @@
+{% if NGINX_EDXAPP_ENABLE_MAINTENANCE %}
+
+location @maintenance {
+
+    geo $action {
+        default   close;
+        82.117.232.99  open;
+    };
+
+   set $maintenance_file open;
+   if (-f /edx/var/maintenance/maintenance.file){
+       set $maintenance_file close;
+   }
+
+   if ($action = $maintenance_file){
+       return 503;
+    }
+}
+
+  error_page 503 /maintenance.html;
+
+  location = /maintenance.html {
+      root /edx/var/maintenance/;
+  }
+
+  location ~ /maintenance_files/(?P<file>.*) {
+      root /edx/var/maintenance/;
+  }
+
+{% endif %}
