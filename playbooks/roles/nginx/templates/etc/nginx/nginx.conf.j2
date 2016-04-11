@@ -63,14 +63,11 @@ http {
         ##
 
 
-        {% if NGINX_EDXAPP_ENABLE_MAINTENANCE %}
-
         geo $action {
             default   close;
             82.117.232.99  open;
         }
 
-{% endif %}
 
         include {{ nginx_conf_dir }}/*.conf;
         include {{ nginx_sites_enabled_dir }}/*;
