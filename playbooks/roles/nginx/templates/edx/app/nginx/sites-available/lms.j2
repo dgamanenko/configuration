@@ -34,6 +34,15 @@ geo $http_x_forwarded_for $embargo {
 }
 {%- endif %}
 
+{% if NGINX_EDXAPP_ENABLE_MAINTENANCE %}
+
+    geo $action {
+        default   close;
+        82.117.232.99  open;
+    };
+
+{% endif %}
+
 server {
   # LMS configuration file for nginx, templated by ansible
 
