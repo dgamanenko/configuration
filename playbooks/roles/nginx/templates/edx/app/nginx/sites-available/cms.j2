@@ -13,15 +13,6 @@ upstream cms-backend {
     {% endif %}
 }
 
-{% if NGINX_EDXAPP_ENABLE_MAINTENANCE %}
-
-    geo $action {
-        default   close;
-        82.117.232.99  open;
-    };
-
-{% endif %}
-
 server {
   # CMS configuration file for nginx, templated by ansible
       
